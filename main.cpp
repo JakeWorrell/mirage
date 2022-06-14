@@ -12,11 +12,34 @@ using z80::least_u8;
 #define V_HEIGHT 240
 #define V_SCALE 2
 
+#define ROM_MAX_SIZE 100
+
 class my_emulator : public z80::z80_cpu<my_emulator> {
 public:
     typedef z80::z80_cpu<my_emulator> base;
 
-    my_emulator() {}
+    my_emulator() {
+        FILE * pFile;
+        size_t lSize;
+        size_t result;
+
+        pFile = fopen ( "rom.bin" , "rb" );
+        if (pFile==NULL) {fputs ("Error finding rom.bin",stderr); exit (1);}
+
+        // obtain file size:
+        fseek (pFile , 0 , SEEK_END);
+        lSize = ftell (pFile);
+        rewind (pFile);
+
+        // copy the file into the memory:
+        result = fread (memory,1,lSize,pFile);
+        if (result != lSize) {fputs ("Error reading rom.bin",stderr); exit (3);}
+
+        /* the whole file is now loaded in the memory memory. */
+
+        // terminate
+        fclose (pFile);
+    }
 
     void on_set_pc(z80::fast_u16 pc) {
         std::printf("pc = 0x%04x\n", static_cast<unsigned>(pc));
@@ -39,11 +62,8 @@ public:
     }
 
     private:
-    least_u8 memory[z80::address_space_size] = {
-        0x21, 0x34, 0x12,  // ld hl, 0x1234
-        0x3e, 0x07,        // ld a, 7
-        0x77,              // ld (hl), a
-    };
+
+    least_u8 memory[z80::address_space_size] = {};
 };
  
 int main(int argc, char *argv[])
