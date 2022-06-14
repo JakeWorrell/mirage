@@ -1,3 +1,4 @@
 ld hl, 0x1234
 ld a, 7
 ld (hl), a
+halt

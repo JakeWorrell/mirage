@@ -43,6 +43,12 @@ public:
         memory[addr] = static_cast<least_u8>(n);
     }
 
+    void on_halt() {
+        std::printf("HALT\n");
+        base::on_halt();
+    }
+
+
     private:
 
     least_u8 memory[z80::address_space_size] = {};
@@ -85,10 +91,7 @@ int main(int argc, char *argv[])
 {
     int quit = 0;
     my_emulator e;
-    e.on_step();
-    e.on_step();
-    e.on_step();
-
+    
     SDL_Event event;
 
     /* Loop until an SDL_QUIT event is found */
@@ -120,6 +123,9 @@ int main(int argc, char *argv[])
                     break;
             }
 
+        }
+        if (!e.on_is_halted()) {
+            e.on_step();
         }
 
     }
