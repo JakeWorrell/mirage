@@ -2,6 +2,9 @@
 
 # set the compiler
 CC=g++
+ZZ=z80asm
+ZFLAGS=-b -orom.bin rom/rom.z80
+
 # set the compiler flags
 CFLAGS=`sdl2-config --libs --cflags` -ggdb3 -O0 --std=c99 -Wall -lSDL2_image -lm
 # add header files here
@@ -29,6 +32,12 @@ $(OBJS):
 # recipe to clean the workspace
 clean: 
 	rm -f $(EXEC) $(OBJS)
+	rm -f rom.bin
+	rm -f roms/*.o
+
+roms:
+	$(ZZ) $(ZFLAGS)
+
 
 .PHONY: all clean
 
