@@ -48,11 +48,30 @@ public:
         base::on_halt();
     }
 
+    void render_display() {
+        
+        
+        for (size_t x = 0; x < V_WIDTH; x++)
+        {
+            for (size_t y = 0; y < V_HEIGHT; y++)
+            {
+                pixels[x + (y*V_WIDTH)]= x*y;
+            }
+        }
+        SDL_UpdateTexture(texture, NULL, pixels, V_WIDTH * sizeof(Uint32));
+
+        SDL_RenderClear(renderer);
+        SDL_RenderCopy(renderer, texture, NULL, NULL);
+        SDL_RenderPresent(renderer);   
+    }
 
     private:
 
     least_u8 memory[z80::address_space_size] = {};
-    SDL_Window* win;
+    SDL_Window *window;
+    SDL_Renderer *renderer;
+    SDL_Texture * texture;
+    Uint32 * pixels = new Uint32[V_WIDTH * V_HEIGHT];
 
     void load_rom() {
         FILE * pFile;
@@ -79,11 +98,11 @@ public:
         if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
             printf("error initializing SDL: %s\n", SDL_GetError());
         }
-        win = SDL_CreateWindow("GAME",
-            SDL_WINDOWPOS_CENTERED,
-            SDL_WINDOWPOS_CENTERED,
-            V_WIDTH * V_SCALE, V_HEIGHT * V_SCALE, 0);
- 
+
+        SDL_CreateWindowAndRenderer(V_WIDTH *3, V_HEIGHT*3, 0 , &window, &renderer);
+        texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, V_WIDTH, V_HEIGHT);
+        	
+        memset(pixels, 255, V_WIDTH * V_HEIGHT * sizeof(Uint32));
     }
 };
  
@@ -126,6 +145,7 @@ int main(int argc, char *argv[])
         }
         if (!e.on_is_halted()) {
             e.on_step();
+            e.render_display();
         }
 
     }
