@@ -11,8 +11,60 @@ using z80::least_u8;
 #define V_WIDTH 320
 #define V_HEIGHT 240
 #define V_SCALE 2
-
+#define V_RAM_SIZE V_WIDTH*V_HEIGHT
 #define ROM_MAX_SIZE 100
+
+
+class video_chip
+{
+    private:
+        /* data */
+
+        fast_u8 colour, x, y, mode;
+        uint8_t vram[V_RAM_SIZE]={};
+
+    
+    public:
+        video_chip() {
+            memset(vram, 0, V_WIDTH * V_HEIGHT * sizeof(uint8_t));        
+        }
+
+        ~video_chip();
+
+        uint8_t* get_vram() {
+            return vram;
+        }
+
+
+        void set_register(fast_u16 reg, fast_u8 value) {
+            reg = reg&0xf;
+            printf("REG: %04x\n",reg&0xf);
+            switch (reg)
+            {
+                case 0x00:
+                    colour = value;
+                    break;
+                case 0x01:
+                    x = value;
+                    break;
+                case 0x02:
+                    y = value;
+                    break;
+                case 0x03:
+                    mode = value;
+                    execute();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        void execute() {
+            printf("pset colour:%d x%d y%d\n", colour, x, y);
+            vram[x + y*V_WIDTH] = colour;
+        }
+};
+
 
 class my_emulator : public z80::z80_cpu<my_emulator> {
 public:
@@ -48,6 +100,14 @@ public:
         base::on_halt();
     }
 
+    void on_output(fast_u16 port, fast_u8 n) {
+        
+        std::printf("output 0x%02x to 0x%04x\n", static_cast<unsigned>(n),
+                    static_cast<unsigned>(port));
+        
+        video->set_register(port,n);
+    }
+
     void render_display() {
         
         
@@ -55,11 +115,20 @@ public:
         {
             for (size_t y = 0; y < V_HEIGHT; y++)
             {
-                pixels[x + (y*V_WIDTH)]= x*y;
+                int pIndex = x + (y*V_WIDTH);
+                
+
+                  Uint32 * const target_pixel = (Uint32 *) ((Uint8 *) surface->pixels
+                                             + y * surface->pitch
+                                             + x * surface->format->BytesPerPixel);
+                *target_pixel = (video->get_vram()[pIndex] | 0b00000011)
+                | (video->get_vram()[pIndex] | 0b00001100) << 6
+                | (video->get_vram()[pIndex] | 0b00110000) << 12;
+                    
             }
         }
-        SDL_UpdateTexture(texture, NULL, pixels, V_WIDTH * sizeof(Uint32));
 
+        SDL_UpdateTexture(texture, NULL, surface->pixels, surface->pitch);
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, texture, NULL, NULL);
         SDL_RenderPresent(renderer);   
@@ -71,7 +140,8 @@ public:
     SDL_Window *window;
     SDL_Renderer *renderer;
     SDL_Texture * texture;
-    Uint32 * pixels = new Uint32[V_WIDTH * V_HEIGHT];
+    SDL_Surface *surface;
+    video_chip *video;
 
     void load_rom() {
         FILE * pFile;
@@ -98,13 +168,23 @@ public:
         if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
             printf("error initializing SDL: %s\n", SDL_GetError());
         }
+        
+        SDL_CreateWindowAndRenderer(V_WIDTH *2, V_HEIGHT*2, 0 , &window, &renderer);
 
-        SDL_CreateWindowAndRenderer(V_WIDTH *3, V_HEIGHT*3, 0 , &window, &renderer);
-        texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, V_WIDTH, V_HEIGHT);
+        surface = SDL_CreateRGBSurface(0, V_WIDTH, V_HEIGHT, 32,
+                                    0x00FF0000,
+                                    0x0000FF00,
+                                    0x000000FF,
+                                    0xFF000000);
+        texture = SDL_CreateTexture(renderer,
+            SDL_PIXELFORMAT_ARGB8888,
+            SDL_TEXTUREACCESS_STREAMING, V_WIDTH, V_HEIGHT);
         	
-        memset(pixels, 255, V_WIDTH * V_HEIGHT * sizeof(Uint32));
+
+        video = new video_chip();
     }
 };
+
  
 int main(int argc, char *argv[])
 {
