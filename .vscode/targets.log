@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Jun 14 10:56:22 2022
+# Make data base, printed on Tue Jun 14 19:54:31 2022
 
 # Variables
 
@@ -23,7 +25,6 @@ DESKTOP_SESSION = ubuntu
 # environment
 XDG_SESSION_CLASS = user
 # environment
- 
 SNAP_COMMON = /var/snap/code/common
 # environment
 XDG_SESSION_TYPE = x11
@@ -49,24 +50,18 @@ SHELL = /bin/sh
 SNAP_DATA = /var/snap/code/97
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupport":true}
-# makefile (from 'makefile', line 5)
-ZZ = z80asm
 # environment
 JOURNAL_STREAM = 9:61287
-# makefile (from 'makefile', line 9)
-CFLAGS = `sdl2-config --libs --cflags` -ggdb3 -O0 --std=c++11 -Wall -lSDL2_image -lm
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
 QSYS_ROOTDIR = /home/jake/intelFPGA_lite/17.0/quartus/sopc_builder/bin
-# makefile (from 'makefile', line 11)
-HDRS = 
 # environment
 SNAP_INSTANCE_NAME = code
 # environment
 SNAP_ARCH = amd64
-# makefile (from 'makefile', line 1)
-MAKEFILE_LIST :=  makefile
+# makefile
+MAKEFILE_LIST := 
 # automatic
 @F = $(notdir $@)
 # environment
@@ -75,18 +70,15 @@ GIO_LAUNCHED_DESKTOP_FILE = /var/lib/snapd/desktop/applications/code_code.deskto
 USERNAME = jake
 # environment
 MANDATORY_PATH = /usr/share/gconf/ubuntu.mandatory.path
-# makefile (from 'makefile', line 6)
-ZFLAGS = -b -orom.bin rom/rom.z80
 # environment
 XDG_DATA_DIRS = /usr/share/ubuntu:/home/jake/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
 # environment
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
+ 
 VSCODE_VERBOSE_LOGGING = true
 # environment
 _ = /snap/code/97/usr/share/code/code
-# makefile (from 'makefile', line 16)
-OBJS = $(SRCS:.cpp=.o)
 # environment
 MANAGERPID = 3625
 # environment
@@ -165,10 +157,10 @@ VSCODE_CLI = 1
 VSCODE_CODE_CACHE_PATH = /home/jake/.config/Code/CachedData/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5
 # environment
 LOGNAME = jake
- 
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
+ 
 SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
 # environment
 SNAP_CONTEXT = YmyLlxBsNWqVx8fHH9WjCq9jXPVVdTddpwnvnYdRjXQy
@@ -194,18 +186,12 @@ MAKE = $(MAKE_COMMAND)
 MAKECMDGOALS := all
 # environment
 QT_IM_MODULE = ibus
-# makefile (from 'makefile', line 13)
-SRCS = main.cpp
 # environment
 SNAP_USER_DATA = /home/jake/snap/code/97
 # environment
 SHLVL = 0
-# makefile (from 'makefile', line 4)
-CC = g++
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
-# makefile (from 'makefile', line 19)
-EXEC = emu
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -213,8 +199,9 @@ USER = jake
 # environment
 SNAP_REVISION = 97
 # makefile
-.DEFAULT_GOAL := all
+.DEFAULT_GOAL := 
 # environment
+ 
 XDG_CURRENT_DESKTOP = Unity
 # environment
 LESS = -R
@@ -248,7 +235,6 @@ NVM_DIR = /home/jake/.nvm
 GDK_BACKEND = x11
 # automatic
 +F = $(notdir $+)
- 
 # environment
 ZCCCFG = /home/jake/z88dk/lib/config
 # environment
@@ -281,6 +267,7 @@ SNAP_REEXEC =
 CHROME_DESKTOP = code-url-handler.desktop
 # environment
 WINDOWPATH = 2
+ 
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
 # environment
@@ -292,7 +279,7 @@ LANG = C
 # environment
 VSCODE_PID = 654887
 # variable set hash-table stats:
-# Load=139/1024=14%, Rehash=0, Collisions=22/168=13%
+# Load=131/1024=13%, Rehash=0, Collisions=19/153=12%
 
 # Pattern-specific Variable Values
 
@@ -300,91 +287,65 @@ VSCODE_PID = 654887
 
 # Directories
 
-# . (device 64769, inode 30843028): 11 files, no impossibilities.
+# . (device 64769, inode 30843028): 10 files, no impossibilities.
 
-# 11 files, no impossibilities in 1 directories.
+# 10 files, no impossibilities in 1 directories.
 
- 
 # Implicit Rules
 
 # No implicit rules.
 
 # Files
 
-all: emu
-#  Phony target (prerequisite of .PHONY).
+# Not a target:
+all:
 #  Command line target.
-#  Implicit rule search has not been done.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
-#  Successfully updated.
-
-.PHONY: all clean
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Failed to be updated.
 
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-14 10:56:10.096306708
+ 
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
-
-emu:
-#  Implicit rule search has not been done.
-#  Last modified 2022-06-14 10:56:13.952031824
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'makefile', line 26):
-	$(CC) -o $@ $(SRCS) $(CFLAGS)
+#  Failed to be updated.
 
 # Not a target:
- 
 .DEFAULT:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
-clean:
-#  Phony target (prerequisite of .PHONY).
-#  Implicit rule search has not been done.
+# Not a target:
+GNUmakefile:
+#  Implicit rule search has been done.
 #  File does not exist.
-#  File has not been updated.
-#  recipe to execute (from 'makefile', line 34):
-	rm -f $(EXEC) $(OBJS)
-	rm -f rom.bin
-	rm -f roms/*.o
-
-main.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'makefile', line 30):
-	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS)
-
-roms:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'makefile', line 39):
-	$(ZZ) $(ZFLAGS)
+#  File has been updated.
+#  Failed to be updated.
 
 # files hash-table stats:
-# Load=9/1024=1%, Rehash=0, Collisions=0/24=0%
+# Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 20 / storage = 148 B / avg = 7 B
-# current buf: size = 8162 B / used = 148 B / count = 20 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 18 / storage = 148 B / avg = 8 B
+# current buf: size = 8162 B / used = 148 B / count = 18 / avg = 8 B
 
-# strcache performance: lookups = 35 / hit rate = 42%
+# strcache performance: lookups = 21 / hit rate = 14%
 # hash-table stats:
-# Load=20/8192=0%, Rehash=0, Collisions=1/35=3%
- 
-# Finished Make data base on Tue Jun 14 10:56:22 2022
+# Load=18/8192=0%, Rehash=0, Collisions=1/21=5%
+# Finished Make data base on Tue Jun 14 19:54:31 2022
 
  

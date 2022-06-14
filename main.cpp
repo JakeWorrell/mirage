@@ -139,7 +139,7 @@ public:
     least_u8 memory[z80::address_space_size] = {};
     SDL_Window *window;
     SDL_Renderer *renderer;
-    SDL_Texture * texture;
+    SDL_Texture *texture;
     SDL_Surface *surface;
     video_chip *video;
 

@@ -1,5 +1,6 @@
 make --dry-run --keep-going --print-directory
 make: Entering directory '/home/jake/code/emu'
-make: Nothing to be done for 'all'.
 make: Leaving directory '/home/jake/code/emu'
  
+make: *** No targets specified and no makefile found.  Stop.
+

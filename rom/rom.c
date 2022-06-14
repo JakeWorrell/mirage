@@ -1,3 +1,5 @@
+void main() {
+#asm
 ld hl, 0x1234
 ld a, 0xff
 out (0x00), a
@@ -8,3 +10,6 @@ out (0x02), a
 ld a, 1
 out (0x03), a
 halt
+#endasm
+       
+}
