@@ -2,8 +2,8 @@
 
 # set the compiler
 CC=g++
-ZCC=z88dk-sccz80
-ZCFLAGS=rom/rom.c
+ZCC=zcc
+ZCFLAGS=+z80 -create-app -o testrom rom/rom.c
 ZASM=z88dk-z80asm
 ZASMFLAGS=-mz80 -orom.bin -b rom/rom.asm 
 
@@ -35,13 +35,14 @@ $(OBJS):
 clean: 
 	rm -f $(EXEC) $(OBJS)
 	rm -f *.def
+	rm -f *.bin
 	rm -f rom.bin
 	rm -f rom/*.asm
 	rm -f rom/*.o
 
 roms:
 	$(ZCC) $(ZCFLAGS)
-	$(ZASM) $(ZASMFLAGS)
+#	$(ZASM) $(ZASMFLAGS)
 
 
 .PHONY: all clean

@@ -1,15 +1,15 @@
+#include "graphics.h"
+
 void main() {
-#asm
-ld hl, 0x1234
+__asm
 ld a, 0xff
 out (0x00), a
-ld a, 0xf
-out (0x01), a
-ld a, 0xf
-out (0x02), a
-ld a, 1
-out (0x03), a
-halt
-#endasm
+__endasm;
        
+       for (int x = 0; x < 320; x++)
+       {
+           plot(x,34);
+       }
+       
+
 }

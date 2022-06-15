@@ -38,7 +38,7 @@ class video_chip
 
         void set_register(fast_u16 reg, fast_u8 value) {
             reg = reg&0xf;
-            printf("REG: %04x\n",reg&0xf);
+            //printf("REG: %04x\n",reg&0xf);
             switch (reg)
             {
                 case 0x00:
@@ -60,7 +60,7 @@ class video_chip
         }
 
         void execute() {
-            printf("pset colour:%d x%d y%d\n", colour, x, y);
+            //printf("pset colour:%d x%d y%d\n", colour, x, y);
             vram[x + y*V_WIDTH] = colour;
         }
 };
@@ -76,22 +76,22 @@ public:
     }
 
     void on_set_pc(z80::fast_u16 pc) {
-        std::printf("pc = 0x%04x\n", static_cast<unsigned>(pc));
+        //std::printf("pc = 0x%04x\n", static_cast<unsigned>(pc));
         base::on_set_pc(pc);
     }
 
     fast_u8 on_read(fast_u16 addr) {
         assert(addr < z80::address_space_size);
         fast_u8 n = memory[addr];
-        std::printf("read 0x%02x at 0x%04x\n", static_cast<unsigned>(n),
-                    static_cast<unsigned>(addr));
+        // std::printf("read 0x%02x at 0x%04x\n", static_cast<unsigned>(n),
+        //             static_cast<unsigned>(addr));
         return n;
     }
 
     void on_write(fast_u16 addr, fast_u8 n) {
         assert(addr < z80::address_space_size);
-        std::printf("write 0x%02x at 0x%04x\n", static_cast<unsigned>(n),
-                    static_cast<unsigned>(addr));
+        // std::printf("write 0x%02x at 0x%04x\n", static_cast<unsigned>(n),
+        //             static_cast<unsigned>(addr));
         memory[addr] = static_cast<least_u8>(n);
     }
 
@@ -102,8 +102,8 @@ public:
 
     void on_output(fast_u16 port, fast_u8 n) {
         
-        std::printf("output 0x%02x to 0x%04x\n", static_cast<unsigned>(n),
-                    static_cast<unsigned>(port));
+        //std::printf("output 0x%02x to 0x%04x\n", static_cast<unsigned>(n),
+        //            static_cast<unsigned>(port));
         
         video->set_register(port,n);
     }
@@ -148,7 +148,7 @@ public:
         size_t lSize;
         size_t result;
 
-        pFile = fopen ( "rom.bin" , "rb" );
+        pFile = fopen ( "testrom.bin" , "rb" );
         if (pFile==NULL) {fputs ("Error finding rom.bin",stderr); exit (1);}
 
         // obtain file size:

@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "z80.h": "c"
-    }
+        "z80.h": "c",
+        "*.inc": "cpp",
+        "random": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }
