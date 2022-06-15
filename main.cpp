@@ -118,7 +118,7 @@ public:
                 int pIndex = x + (y*V_WIDTH);
                 
 
-                  Uint32 * const target_pixel = (Uint32 *) ((Uint8 *) surface->pixels
+                 Uint32 * const target_pixel = (Uint32 *) ((Uint8 *) surface->pixels
                                              + y * surface->pitch
                                              + x * surface->format->BytesPerPixel);
                 *target_pixel = (video->get_vram()[pIndex] | 0b00000011)
@@ -169,7 +169,7 @@ public:
             printf("error initializing SDL: %s\n", SDL_GetError());
         }
         
-        SDL_CreateWindowAndRenderer(V_WIDTH *2, V_HEIGHT*2, 0 , &window, &renderer);
+        SDL_CreateWindowAndRenderer(V_WIDTH *2, V_HEIGHT*2, SDL_RENDERER_PRESENTVSYNC , &window, &renderer);
 
         surface = SDL_CreateRGBSurface(0, V_WIDTH, V_HEIGHT, 32,
                                     0x00FF0000,
@@ -223,8 +223,15 @@ int main(int argc, char *argv[])
             }
 
         }
+       
         if (!e.on_is_halted()) {
-            e.on_step();
+
+            // 7mhz = 7000000; 60fps (I think) so 7M/60 = 116666. no idea
+            for (size_t i = 0; i < 116666; i++)
+            {
+                e.on_step();
+            }
+        
             e.render_display();
         }
 

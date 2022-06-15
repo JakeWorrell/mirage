@@ -1,5 +1,5 @@
-make --dry-run --keep-going --print-directory
+make --dry-run --always-make --keep-going --print-directory
 make: Entering directory '/home/jake/code/emu'
-make: Nothing to be done for 'all'.
+g++ -o emu main.cpp `sdl2-config --libs --cflags` -ggdb3 -O0 --std=c++11 -Wall -lSDL2_image -lm
 make: Leaving directory '/home/jake/code/emu'
  
