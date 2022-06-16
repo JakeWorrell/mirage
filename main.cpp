@@ -21,19 +21,33 @@ class video_chip
         /* data */
 
         fast_u8 colour, x, y, mode;
-        uint8_t vram[V_RAM_SIZE]={};
+            SDL_Color colors[256];
 
     
     public:
+        SDL_Surface *surface;
+
         video_chip() {
-            memset(vram, 0, V_WIDTH * V_HEIGHT * sizeof(uint8_t));        
+            surface = SDL_CreateRGBSurface(0, V_WIDTH, V_HEIGHT, 32,
+                                    0x00FF0000,
+                                    0x0000FF00,
+                                    0x000000FF,
+                                    0xFF000000);
+
+int i;
+
+for(i = 0; i < 256; i++)
+{
+    colors[i].r = colors[i].g = colors[i].b = (Uint8)i;
+}
+
+
+SDL_SetPaletteColors(surface->format->palette, colors, 0, 256);
+
+            memset(surface->pixels, 0, V_WIDTH * V_HEIGHT * sizeof(uint8_t));        
         }
 
         ~video_chip();
-
-        uint8_t* get_vram() {
-            return vram;
-        }
 
 
         void set_register(fast_u16 reg, fast_u8 value) {
@@ -59,9 +73,14 @@ class video_chip
             }
         }
 
+
         void execute() {
             //printf("pset colour:%d x%d y%d\n", colour, x, y);
-            vram[x + y*V_WIDTH] = colour;
+            int offset = x + y*V_WIDTH;
+            unsigned *fp = (unsigned *)(surface->pixels + offset);
+            memset(fp, colour, sizeof(uint8_t));        
+
+
         }
 };
 
@@ -111,24 +130,7 @@ public:
     void render_display() {
         
         
-        for (size_t x = 0; x < V_WIDTH; x++)
-        {
-            for (size_t y = 0; y < V_HEIGHT; y++)
-            {
-                int pIndex = x + (y*V_WIDTH);
-                
-
-                 Uint32 * const target_pixel = (Uint32 *) ((Uint8 *) surface->pixels
-                                             + y * surface->pitch
-                                             + x * surface->format->BytesPerPixel);
-                *target_pixel = (video->get_vram()[pIndex] | 0b00000011)
-                | (video->get_vram()[pIndex] | 0b00001100) << 6
-                | (video->get_vram()[pIndex] | 0b00110000) << 12;
-                    
-            }
-        }
-
-        SDL_UpdateTexture(texture, NULL, surface->pixels, surface->pitch);
+        SDL_UpdateTexture(texture, NULL, video->surface->pixels, video->surface->pitch);
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, texture, NULL, NULL);
         SDL_RenderPresent(renderer);   
@@ -140,7 +142,6 @@ public:
     SDL_Window *window;
     SDL_Renderer *renderer;
     SDL_Texture *texture;
-    SDL_Surface *surface;
     video_chip *video;
 
     void load_rom() {
@@ -170,14 +171,9 @@ public:
         }
         
         SDL_CreateWindowAndRenderer(V_WIDTH *2, V_HEIGHT*2, SDL_RENDERER_PRESENTVSYNC , &window, &renderer);
-
-        surface = SDL_CreateRGBSurface(0, V_WIDTH, V_HEIGHT, 32,
-                                    0x00FF0000,
-                                    0x0000FF00,
-                                    0x000000FF,
-                                    0xFF000000);
+    
         texture = SDL_CreateTexture(renderer,
-            SDL_PIXELFORMAT_ARGB8888,
+            SDL_PIXELFORMAT_INDEX8,
             SDL_TEXTUREACCESS_STREAMING, V_WIDTH, V_HEIGHT);
         	
 
