@@ -1,4 +1,6 @@
 /**
+ * @brief Mirage default palette 
+ * 
  * https://lospec.com/palette-list/duel
  * Duel Palette by Arilyn (https://twitter.com/ArilynArt)
  */
