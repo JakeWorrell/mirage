@@ -2,6 +2,8 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_timer.h>
 
+#include "include/palette.h"
+
 #include "z80/z80.h"
 
 using z80::fast_u8;
@@ -10,7 +12,7 @@ using z80::least_u8;
 
 #define V_WIDTH 320
 #define V_HEIGHT 240
-#define V_SCALE 2
+#define V_SCALE 3
 #define V_RAM_SIZE V_WIDTH*V_HEIGHT
 #define ROM_MAX_SIZE 100
 
@@ -21,28 +23,14 @@ class video_chip
         /* data */
 
         fast_u8 colour, x, y, mode;
-            SDL_Color colors[256];
-
     
     public:
         SDL_Surface *surface;
 
         video_chip() {
-            surface = SDL_CreateRGBSurface(0, V_WIDTH, V_HEIGHT, 32,
-                                    0x00FF0000,
-                                    0x0000FF00,
-                                    0x000000FF,
-                                    0xFF000000);
+            surface = SDL_CreateRGBSurface(SDL_SWSURFACE, V_WIDTH, V_HEIGHT, 8, 0, 0, 0, 0);
 
-int i;
-
-for(i = 0; i < 256; i++)
-{
-    colors[i].r = colors[i].g = colors[i].b = (Uint8)i;
-}
-
-
-SDL_SetPaletteColors(surface->format->palette, colors, 0, 256);
+            SDL_SetPaletteColors(surface->format->palette, palette, 0, 256);
 
             memset(surface->pixels, 0, V_WIDTH * V_HEIGHT * sizeof(uint8_t));        
         }
@@ -79,8 +67,6 @@ SDL_SetPaletteColors(surface->format->palette, colors, 0, 256);
             int offset = x + y*V_WIDTH;
             unsigned *fp = (unsigned *)(surface->pixels + offset);
             memset(fp, colour, sizeof(uint8_t));        
-
-
         }
 };
 
@@ -128,10 +114,7 @@ public:
     }
 
     void render_display() {
-        
-        
-        SDL_UpdateTexture(texture, NULL, video->surface->pixels, video->surface->pitch);
-        SDL_RenderClear(renderer);
+        SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, video->surface);
         SDL_RenderCopy(renderer, texture, NULL, NULL);
         SDL_RenderPresent(renderer);   
     }
@@ -141,7 +124,6 @@ public:
     least_u8 memory[z80::address_space_size] = {};
     SDL_Window *window;
     SDL_Renderer *renderer;
-    SDL_Texture *texture;
     video_chip *video;
 
     void load_rom() {
@@ -170,14 +152,13 @@ public:
             printf("error initializing SDL: %s\n", SDL_GetError());
         }
         
-        SDL_CreateWindowAndRenderer(V_WIDTH *2, V_HEIGHT*2, SDL_RENDERER_PRESENTVSYNC , &window, &renderer);
+        window = SDL_CreateWindow("Foo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, V_WIDTH*V_SCALE, V_HEIGHT*V_SCALE, 0);
+        renderer = SDL_CreateRenderer(window, -1, 0);
+        
     
-        texture = SDL_CreateTexture(renderer,
-            SDL_PIXELFORMAT_INDEX8,
-            SDL_TEXTUREACCESS_STREAMING, V_WIDTH, V_HEIGHT);
-        	
-
         video = new video_chip();
+
+    
     }
 };
 
