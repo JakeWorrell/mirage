@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Jun 16 00:06:17 2022
+# Make data base, printed on Sat Jun 18 16:45:25 2022
 
 # Variables
 
@@ -50,13 +50,13 @@ SNAP_DATA = /var/snap/code/99
 VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupport":true}
 # environment
 JOURNAL_STREAM = 9:61287
-# makefile (from 'makefile', line 11)
+# makefile (from 'makefile', line 10)
 CFLAGS = `sdl2-config --libs --cflags` -ggdb3 -O0 --std=c++11 -Wall -lSDL2_image -lm
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
 QSYS_ROOTDIR = /home/jake/intelFPGA_lite/17.0/quartus/sopc_builder/bin
-# makefile (from 'makefile', line 13)
+# makefile (from 'makefile', line 12)
 HDRS = 
 # environment
 SNAP_INSTANCE_NAME = code
@@ -80,7 +80,7 @@ DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 VSCODE_VERBOSE_LOGGING = true
 # environment
 _ = /snap/code/99/usr/share/code/code
-# makefile (from 'makefile', line 18)
+# makefile (from 'makefile', line 17)
 OBJS = $(SRCS:.cpp=.o)
 # environment
 MANAGERPID = 3625
@@ -138,8 +138,6 @@ GIO_LAUNCHED_DESKTOP_FILE_PID = 808312
 %F = $(notdir $%)
 # environment
 DISPLAY = :0
-# makefile (from 'makefile', line 8)
-ZASMFLAGS = -mz80 -orom.bin -b rom/rom.asm 
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
@@ -192,7 +190,7 @@ MAKE = $(MAKE_COMMAND)
 MAKECMDGOALS := all
 # environment
 QT_IM_MODULE = ibus
-# makefile (from 'makefile', line 15)
+# makefile (from 'makefile', line 14)
 SRCS = main.cpp
 # environment
 SNAP_USER_DATA = /home/jake/snap/code/99
@@ -202,7 +200,7 @@ SHLVL = 0
 CC = g++
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
-# makefile (from 'makefile', line 21)
+# makefile (from 'makefile', line 20)
 EXEC = emu
 # default
 MAKE_VERSION := 4.2.1
@@ -255,7 +253,7 @@ QT_ACCESSIBILITY = 1
 # environment
 DEFAULTS_PATH = /usr/share/gconf/ubuntu.default.path
 # makefile (from 'makefile', line 6)
-ZCFLAGS = +z80 -create-app -o testrom rom/rom.c
+ZCFLAGS = +z80 -create-app -o testcart rom/testcart.c
 # default
 MAKEFILES := 
 # environment
@@ -280,7 +278,6 @@ SUFFIXES :=
 SNAP_REEXEC = 
 # environment
 CHROME_DESKTOP = code-url-handler.desktop
- 
 # environment
 WINDOWPATH = 2
 # default
@@ -292,9 +289,10 @@ GJS_DEBUG_OUTPUT = stderr
 # environment
 LANG = C
 # environment
+ 
 VSCODE_PID = 808362
 # variable set hash-table stats:
-# Load=141/1024=14%, Rehash=0, Collisions=21/170=12%
+# Load=140/1024=14%, Rehash=0, Collisions=21/169=12%
 
 # Pattern-specific Variable Values
 
@@ -302,9 +300,9 @@ VSCODE_PID = 808362
 
 # Directories
 
-# . (device 64769, inode 30843028): 15 files, no impossibilities.
+# . (device 64769, inode 30843028): 18 files, no impossibilities.
 
-# 15 files, no impossibilities in 1 directories.
+# 18 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -328,16 +326,16 @@ all: emu
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-15 09:41:52.861437046
+#  Last modified 2022-06-18 16:45:11.618349095
 #  File has been updated.
 #  Successfully updated.
 
 emu:
 #  Implicit rule search has not been done.
-#  Last modified 2022-06-15 17:53:21.169022833
+#  Last modified 2022-06-18 16:10:56.415988442
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'makefile', line 28):
+#  recipe to execute (from 'makefile', line 27):
 	$(CC) -o $@ $(SRCS) $(CFLAGS)
 
 # Not a target:
@@ -351,7 +349,7 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'makefile', line 36):
+#  recipe to execute (from 'makefile', line 35):
 	rm -f $(EXEC) $(OBJS)
 	rm -f *.def
 	rm -f *.bin
@@ -363,14 +361,14 @@ main.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'makefile', line 32):
+#  recipe to execute (from 'makefile', line 31):
 	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS)
 
 roms:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'makefile', line 44):
+#  recipe to execute (from 'makefile', line 43):
 	$(ZCC) $(ZCFLAGS)
 
 # files hash-table stats:
@@ -381,12 +379,12 @@ roms:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 24 / storage = 225 B / avg = 9 B
-# current buf: size = 8162 B / used = 225 B / count = 24 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 27 / storage = 254 B / avg = 9 B
+# current buf: size = 8162 B / used = 254 B / count = 27 / avg = 9 B
 
-# strcache performance: lookups = 39 / hit rate = 38%
+# strcache performance: lookups = 42 / hit rate = 35%
 # hash-table stats:
-# Load=24/8192=0%, Rehash=0, Collisions=1/39=3%
-# Finished Make data base on Thu Jun 16 00:06:17 2022
+# Load=27/8192=0%, Rehash=0, Collisions=1/42=2%
+# Finished Make data base on Sat Jun 18 16:45:25 2022
 
  

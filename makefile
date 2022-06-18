@@ -3,9 +3,8 @@
 # set the compiler
 CC=g++
 ZCC=zcc
-ZCFLAGS=+z80 -create-app -o testrom rom/rom.c
+ZCFLAGS=+z80 -create-app -o testcart rom/testcart.c
 ZASM=z88dk-z80asm
-ZASMFLAGS=-mz80 -orom.bin -b rom/rom.asm 
 
 # set the compiler flags
 CFLAGS=`sdl2-config --libs --cflags` -ggdb3 -O0 --std=c++11 -Wall -lSDL2_image -lm
@@ -42,7 +41,6 @@ clean:
 
 roms:
 	$(ZCC) $(ZCFLAGS)
-#	$(ZASM) $(ZASMFLAGS)
 
 
 .PHONY: all clean

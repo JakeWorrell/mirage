@@ -131,7 +131,7 @@ public:
         size_t lSize;
         size_t result;
 
-        pFile = fopen ( "testrom.bin" , "rb" );
+        pFile = fopen ( "testcart.bin" , "rb" );
         if (pFile==NULL) {fputs ("Error finding rom.bin",stderr); exit (1);}
 
         // obtain file size:
