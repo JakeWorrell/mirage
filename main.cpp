@@ -3,6 +3,7 @@
 #include <SDL2/SDL_timer.h>
 
 #include "include/palette.h"
+#include "include/video.h"
 
 #include "z80/z80.h"
 
@@ -15,61 +16,6 @@ using z80::least_u8;
 #define V_SCALE 3
 #define V_RAM_SIZE V_WIDTH*V_HEIGHT
 #define ROM_MAX_SIZE 100
-
-
-class video_chip
-{
-    private:
-        /* data */
-
-        fast_u8 colour, x, y, mode;
-    
-    public:
-        SDL_Surface *surface;
-
-        video_chip() {
-            surface = SDL_CreateRGBSurface(SDL_SWSURFACE, V_WIDTH, V_HEIGHT, 8, 0, 0, 0, 0);
-
-            SDL_SetPaletteColors(surface->format->palette, palette, 0, 256);
-
-            memset(surface->pixels, 0, V_WIDTH * V_HEIGHT * sizeof(uint8_t));        
-        }
-
-        ~video_chip();
-
-
-        void set_register(fast_u16 reg, fast_u8 value) {
-            reg = reg&0xf;
-            //printf("REG: %04x\n",reg&0xf);
-            switch (reg)
-            {
-                case 0x00:
-                    colour = value;
-                    break;
-                case 0x01:
-                    x = value;
-                    break;
-                case 0x02:
-                    y = value;
-                    break;
-                case 0x03:
-                    mode = value;
-                    execute();
-                    break;
-                default:
-                    break;
-            }
-        }
-
-
-        void execute() {
-            //printf("pset colour:%d x%d y%d\n", colour, x, y);
-            int offset = x + y*V_WIDTH;
-            unsigned *fp = (unsigned *)(surface->pixels + offset);
-            memset(fp, colour, sizeof(uint8_t));        
-        }
-};
-
 
 class my_emulator : public z80::z80_cpu<my_emulator> {
 public:
