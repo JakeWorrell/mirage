@@ -1,8 +1,33 @@
 #include "../include/constants.h"
 
+void clear(unsigned colour);
 void plot(unsigned x, unsigned y, unsigned colour);
 
+void clear(unsigned colour) 
+{
+    __asm
+    ld hl,3
+    add hl,sp              ; skip over return address on stack
+    inc hl
 
+    ld a, VIDEO_MODE_CLEAR
+    out (VIDEO_ADDR_MODE), a
+
+    ld a,(hl) ;a=colour (upper)
+    out (VIDEO_ADDR_IN), a
+
+    __endasm;
+}
+
+/**
+ * @brief 
+ * 
+ * @todo optomise INCs to to single ADD
+ * 
+ * @param x 
+ * @param y 
+ * @param colour 
+ */
 void plot(unsigned x, unsigned y, unsigned colour) 
 {
     __asm

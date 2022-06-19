@@ -21,14 +21,28 @@ class video_chip
         fast_u16 x, y, width = 320, height = 240;
 
         std::map<fast_u8, std::array<fast_u8, 10>> stateMap = {
+            {VIDEO_MODE_CLEAR, {VIDEO_STATE_RCV_COLOR, VIDEO_STATE_BUSY, VIDEO_STATE_READY}},
             {VIDEO_MODE_PLOT, {VIDEO_STATE_RCV_X_UPPER, VIDEO_STATE_RCV_X_LOWER,VIDEO_STATE_RCV_Y_UPPER, VIDEO_STATE_RCV_Y_LOWER, VIDEO_STATE_RCV_COLOR, VIDEO_STATE_BUSY, VIDEO_STATE_READY}}
         };
 
     void execute() {
-        //printf("pset colour:%d x%d y%d\n", colour, x, y);
-        int offset = x + y*width;
-        unsigned *fp = (unsigned *)(surface->pixels + offset);
-        memset(fp, colour, sizeof(uint8_t));        
+        switch (mode)
+        {
+            case VIDEO_MODE_CLEAR: {
+                //printf("clear colour:%d", colour, x, y);
+                memset(surface->pixels, colour, width * height * sizeof(uint8_t));   
+                break;
+            }
+            case VIDEO_MODE_PLOT: {
+                //printf("pset colour:%d x%d y%d\n", colour, x, y);
+                int offset = x + y*width;
+                unsigned *fp = (unsigned *)(surface->pixels + offset);
+                memset(fp, colour, sizeof(uint8_t));       
+                break;
+            }
+            default:
+                break;
+        } 
     }
     
     public:
@@ -39,7 +53,7 @@ class video_chip
 
             SDL_SetPaletteColors(surface->format->palette, palette, 0, 256);
 
-            memset(surface->pixels, 0, width * height * sizeof(uint8_t));        
+                 
         }
 
         ~video_chip();
