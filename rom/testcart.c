@@ -2,10 +2,13 @@
 
 void main() {
     
-    for (size_t i = 0; i < 18; i++)
+    for (int i = 0; i < 255; i++)
     {
-            clear(17);
-            //wait frame somehow
+        clear(i);
+
+
+
+        //wait frame somehow
     }
     
     for (int x = 0; x < 256; x++)

@@ -122,9 +122,12 @@ int main(int argc, char *argv[])
     SDL_Event event;
 
     /* Loop until an SDL_QUIT event is found */
-    while( !quit ){
 
-        /* Poll for events */
+    while ( !quit ) {
+        
+        Uint64 start = SDL_GetPerformanceCounter();
+
+         /* Poll for events */
         while( SDL_PollEvent( &event ) ){
             
             switch( event.type ){
@@ -151,18 +154,31 @@ int main(int argc, char *argv[])
             }
 
         }
-       
-        if (!e.on_is_halted()) {
 
-            // 7mhz = 7000000; 60fps (I think) so 7M/60 = 116666. no idea
-            for (size_t i = 0; i < 116666; i++)
-            {
-                e.on_step();
+        size_t i = 0;
+       while (!e.on_is_halted())
+       {
+
+            e.on_step();  
+            i++;
+            if (i >=900) {
+                break;
             }
-        
-            e.render_display();
-        }
+        /* code */
+       }
+    e.render_display();
+       
+       
+    
+        Uint64 end = SDL_GetPerformanceCounter();
 
+        float elapsedMS = (end - start) / (float)SDL_GetPerformanceFrequency() * 1000.0f;
+
+        // Cap to 60 FPS
+        //printf ("%f %f", floor(16.666f - elapsedMS), elapsedMS);
+        SDL_Delay(floor(16.666f - elapsedMS));
     }
+
+    
     return 0;
 }
