@@ -51,10 +51,15 @@ public:
         base::on_halt();
     }
 
+     void on_step() {
+        base::on_step();
+        video->update();
+    }
+
     void on_output(fast_u16 port, fast_u8 n) {
         
-        //std::printf("output 0x%02x to 0x%04x\n", static_cast<unsigned>(n),
-        //            static_cast<unsigned>(port));
+        std::printf("output 0x%02x to 0x%04x\n", static_cast<unsigned>(n),
+                    static_cast<unsigned>(port));
         
         video->set_register(port,n);
     }

@@ -2,7 +2,8 @@
     "files.associations": {
         "z80.h": "c",
         "*.inc": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "constants.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

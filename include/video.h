@@ -1,6 +1,10 @@
+#include <map>
+#include <array>
+
 #include <SDL2/SDL.h>
 
 #include "../z80/z80.h"
+#include "constants.h"
 
 using z80::fast_u8;
 using z80::fast_u16;
@@ -13,8 +17,20 @@ class video_chip
     private:
         /* data */
 
-        fast_u8 colour, x, y, mode;
-        int width= 320, height=240;
+        fast_u8 colour, mode, state, statePosition; 
+        fast_u16 x, y, width = 320, height = 240;
+
+        std::map<fast_u8, std::array<fast_u8, 10>> stateMap = {
+            {VIDEO_MODE_PLOT, {VIDEO_STATE_RCV_X_UPPER, VIDEO_STATE_RCV_X_LOWER,VIDEO_STATE_RCV_Y_UPPER, VIDEO_STATE_RCV_Y_LOWER, VIDEO_STATE_RCV_COLOR, VIDEO_STATE_BUSY, VIDEO_STATE_READY}}
+        };
+
+    void execute() {
+        //printf("pset colour:%d x%d y%d\n", colour, x, y);
+        int offset = x + y*width;
+        unsigned *fp = (unsigned *)(surface->pixels + offset);
+        memset(fp, colour, sizeof(uint8_t));        
+    }
+    
     public:
         SDL_Surface *surface;
 
@@ -29,34 +45,74 @@ class video_chip
         ~video_chip();
 
 
+
+
         void set_register(fast_u16 reg, fast_u8 value) {
             reg = reg&0xf;
             //printf("REG: %04x\n",reg&0xf);
             switch (reg)
             {
-                case 0x00:
-                    colour = value;
-                    break;
-                case 0x01:
-                    x = value;
-                    break;
-                case 0x02:
-                    y = value;
-                    break;
-                case 0x03:
+                case VIDEO_ADDR_MODE:
                     mode = value;
-                    execute();
+                    statePosition = 0;
+                    state = stateMap[mode][statePosition];
+                    break;
+                case VIDEO_ADDR_IN:
+                    receiveData(value);
                     break;
                 default:
                     break;
             }
         }
 
+        void receiveData(fast_u8 data) {
 
-        void execute() {
-            //printf("pset colour:%d x%d y%d\n", colour, x, y);
-            int offset = x + y*width;
-            unsigned *fp = (unsigned *)(surface->pixels + offset);
-            memset(fp, colour, sizeof(uint8_t));        
+            switch (state)
+            {
+                case VIDEO_STATE_RCV_X_UPPER:
+                    x = data;
+
+                    break;
+
+                case VIDEO_STATE_RCV_X_LOWER:
+                    x = data;
+                    break;
+
+                case VIDEO_STATE_RCV_Y_UPPER:
+                    y = data;
+
+                    break;
+
+                case VIDEO_STATE_RCV_Y_LOWER:
+                    y = data;
+                    break;
+
+                case VIDEO_STATE_RCV_COLOR:
+                    colour = data;
+                    break;
+
+                default:
+                    return;
+            }
+            printf("video:%d\n", state);
+            statePosition++;
+            state = stateMap[mode][statePosition];
+
+        }
+
+        void update() {
+            
+            switch (state)
+            {
+                case VIDEO_STATE_READY:
+                    break;
+
+                case VIDEO_STATE_BUSY:
+                    execute();
+                    break;
+
+                default:
+                    break;
+            }
         }
 };
