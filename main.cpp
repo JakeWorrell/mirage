@@ -17,8 +17,13 @@ using z80::least_u8;
 #define V_RAM_SIZE V_WIDTH*V_HEIGHT
 #define ROM_MAX_SIZE 100
 
+
+
+
 class my_emulator : public z80::z80_cpu<my_emulator> {
 public:
+    video_chip *video;
+
     typedef z80::z80_cpu<my_emulator> base;
 
     my_emulator() {
@@ -58,10 +63,15 @@ public:
 
     void on_output(fast_u16 port, fast_u8 n) {
         
-        std::printf("output 0x%02x to 0x%04x\n", static_cast<unsigned>(n),
-                    static_cast<unsigned>(port));
+        // std::printf("output 0x%02x to 0x%04x\n", static_cast<unsigned>(n),
+        //             static_cast<unsigned>(port));
         
         video->set_register(port,n);
+    }
+
+    fast_u8 on_input(fast_u16 port) {
+        video->get_register(port);
+        return 0x00;
     }
 
     void render_display() {
@@ -75,7 +85,6 @@ public:
     least_u8 memory[z80::address_space_size] = {};
     SDL_Window *window;
     SDL_Renderer *renderer;
-    video_chip *video;
 
     void load_rom() {
         FILE * pFile;
@@ -113,19 +122,27 @@ public:
     }
 };
 
+
+
  
 int main(int argc, char *argv[])
 {
     int quit = 0;
     my_emulator e;
+
+    const int FPS = 60;
+    const int DELAY_TIME = 1000.0f / FPS;
+    Uint32 frameStart, frameTime;
     
     SDL_Event event;
 
     /* Loop until an SDL_QUIT event is found */
 
     while ( !quit ) {
+        e.video->tof = 0x01;
+
+		frameStart = SDL_GetTicks();
         
-        Uint64 start = SDL_GetPerformanceCounter();
 
          /* Poll for events */
         while( SDL_PollEvent( &event ) ){
@@ -156,27 +173,25 @@ int main(int argc, char *argv[])
         }
 
         size_t i = 0;
-       while (!e.on_is_halted())
-       {
-
+        while (!e.on_is_halted())
+        {
             e.on_step();  
             i++;
-            if (i >=900) {
+            if (i >=46666) {
                 break;
             }
-        /* code */
-       }
-    e.render_display();
+        }
+        e.render_display();
        
        
-    
-        Uint64 end = SDL_GetPerformanceCounter();
+        frameTime = SDL_GetTicks() - frameStart;
+		if (frameTime < DELAY_TIME)
+		{
+			SDL_Delay(int(DELAY_TIME - frameTime));
+		}
 
-        float elapsedMS = (end - start) / (float)SDL_GetPerformanceFrequency() * 1000.0f;
 
-        // Cap to 60 FPS
-        //printf ("%f %f", floor(16.666f - elapsedMS), elapsedMS);
-        SDL_Delay(floor(16.666f - elapsedMS));
+        
     }
 
     

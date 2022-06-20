@@ -2,6 +2,7 @@
 
 void clear(unsigned colour);
 void plot(unsigned x, unsigned y, unsigned colour);
+void waitTOF();
 
 void clear(unsigned colour) 
 {
@@ -60,4 +61,17 @@ void plot(unsigned x, unsigned y, unsigned colour)
     out (VIDEO_ADDR_IN), a
 
     __endasm;
+}
+
+void waitTOF() 
+{ //this comparison stuff doesn't work
+    __asm
+    waitTOF:
+            in a, (VIDEO_ADDR_TOF)
+            cp 0x01
+            jp nz, doneWaitTOF
+            jp waitTOF
+    doneWaitTOF:
+    __endasm;
+
 }

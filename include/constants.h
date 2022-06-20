@@ -2,6 +2,7 @@
 #define VIDEO_ADDR_MODE 0x01
 #define VIDEO_ADDR_IN 0x02
 #define VIDEO_ADDR_META 0x03
+#define VIDEO_ADDR_TOF 0x04
 
 #define VIDEO_MODE_CLEAR 0x00
 #define VIDEO_MODE_PLOT  0x01

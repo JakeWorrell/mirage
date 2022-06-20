@@ -29,7 +29,7 @@ class video_chip
         switch (mode)
         {
             case VIDEO_MODE_CLEAR: {
-                //printf("clear colour:%d", colour, x, y);
+                //printf("clear colour:%d x%d y%d\n", colour, x, y);
                 memset(surface->pixels, colour, width * height * sizeof(uint8_t));   
                 break;
             }
@@ -46,6 +46,7 @@ class video_chip
     }
     
     public:
+        fast_u8 tof;
         SDL_Surface *surface;
 
         video_chip() {
@@ -79,6 +80,27 @@ class video_chip
             }
         }
 
+        fast_u8 get_register(fast_u16 reg) {
+            switch (reg)
+            {
+                case VIDEO_ADDR_TOF:{
+                fast_u8 wasTof =tof;
+                    tof=0x00;
+                    if (wasTof>0){
+                    printf("TOP OF FRAME%d", wasTof);
+                    }
+                    return wasTof;
+                }
+                default:
+                    break;
+            }
+            return 0x00;
+        }
+
+        void setTof(fast_u8 value) {
+            tof = value;
+        }
+
         void receiveData(fast_u8 data) {
 
             switch (state)
@@ -108,7 +130,7 @@ class video_chip
                 default:
                     return;
             }
-            printf("video:%d\n", state);
+            //printf("video:%d\n", state);
             statePosition++;
             state = stateMap[mode][statePosition];
 
