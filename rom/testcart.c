@@ -1,5 +1,6 @@
 #include "graphics.h"
 #include <math.h>
+#include <stdlib.h>
 void main() {
 
     // for (int i = 0; i < 256; i++)
@@ -19,12 +20,11 @@ void main() {
     //     }
     // }
 
-    int x=0,y=120;
-    for (x = 40; x < 315; x+=2) {
-		clear(0);
-		plot(x,y,255);
-		//y=sin(x);
-        y=x;
-        waitTOF();
-	}
+    do
+    {
+
+        plot(rand() % 320,rand() % 240,rand() % 255);
+        /* code */
+    } while (1);
+
 } 

@@ -5,8 +5,9 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
+ 
 
-# Make data base, printed on Sat Jun 25 14:02:12 2022
+# Make data base, printed on Sat Jun 25 14:11:18 2022
 
 # Variables
 
@@ -167,6 +168,7 @@ APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
 # environment
+ 
 SNAP_CONTEXT = YmyLlxBsNWqVx8fHH9WjCq9jXPVVdTddpwnvnYdRjXQy
 # environment
 NVM_CD_FLAGS = -q
@@ -227,7 +229,6 @@ OLDPWD = /home/jake
 # environment
 LANGUAGE = en_GB:en
 # environment
- 
 VSCODE_IPC_HOOK = /run/user/1000/vscode-6986c22e-1.68.1-main.sock
 # environment
 BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
@@ -254,7 +255,7 @@ QT_ACCESSIBILITY = 1
 # environment
 DEFAULTS_PATH = /usr/share/gconf/ubuntu.default.path
 # makefile (from 'makefile', line 6)
-ZCFLAGS = +z80 -create-app --math16 -o testcart rom/testcart.c 
+ZCFLAGS = +z80 -create-app --math32 --math16 -o testcart rom/testcart.c 
 # default
 MAKEFILES := 
 # environment
@@ -300,9 +301,9 @@ VSCODE_PID = 808362
 
 # Directories
 
-# . (device 64769, inode 30843028): 13 files, no impossibilities.
+# . (device 64769, inode 30843028): 18 files, no impossibilities.
 
-# 13 files, no impossibilities in 1 directories.
+# 18 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -326,13 +327,13 @@ all: emu
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 11:33:46.88907794
+#  Last modified 2022-06-25 14:11:09.309814922
 #  File has been updated.
 #  Successfully updated.
 
 emu:
 #  Implicit rule search has not been done.
-#  Last modified 2022-06-25 11:33:50.349111141
+#  Last modified 2022-06-25 14:11:12.241842794
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 27):
@@ -369,6 +370,7 @@ roms:
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'makefile', line 43):
+ 
 	$(ZCC) $(ZCFLAGS)
 
 # files hash-table stats:
@@ -379,12 +381,12 @@ roms:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 22 / storage = 169 B / avg = 7 B
-# current buf: size = 8162 B / used = 169 B / count = 22 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 27 / storage = 259 B / avg = 9 B
+# current buf: size = 8162 B / used = 259 B / count = 27 / avg = 9 B
 
-# strcache performance: lookups = 37 / hit rate = 40%
+# strcache performance: lookups = 42 / hit rate = 35%
 # hash-table stats:
-# Load=22/8192=0%, Rehash=0, Collisions=1/37=3%
-# Finished Make data base on Sat Jun 25 14:02:12 2022
+# Load=27/8192=0%, Rehash=0, Collisions=1/42=2%
+# Finished Make data base on Sat Jun 25 14:11:18 2022
 
  

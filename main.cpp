@@ -176,7 +176,7 @@ int main(int argc, char *argv[])
 
             e.on_step();  
 
-            if (i >=4666) {
+            if (i >=46666) {
                 break;
             }
             i++;

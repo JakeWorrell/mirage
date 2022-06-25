@@ -3,7 +3,7 @@
 # set the compiler
 CC=g++
 ZCC=zcc
-ZCFLAGS=+z80 -create-app --math16 -o testcart rom/testcart.c 
+ZCFLAGS=+z80 -create-app --math32 --math16 -o testcart rom/testcart.c 
 ZASM=z88dk-z80asm
 
 # set the compiler flags
