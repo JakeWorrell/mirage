@@ -3,6 +3,9 @@
 #include <stdlib.h>
 void main() {
 
+    clear(24);       
+    waitTOF();
+
     // for (int i = 0; i < 256; i++)
     // {
     //     clear(i);
@@ -20,13 +23,9 @@ void main() {
     //     }
     // }
 
-    do
-    {
-
-        plot(0,0,255);
-        plot(319,100,255);
-
-        /* code */
-    } while (1);
-
+    // dots on corners
+    plot(0,0,7);
+    plot(319,239,7);
+    plot(319,0,7);
+    plot(0,239,7);
 } 
