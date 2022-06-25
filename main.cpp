@@ -1,3 +1,9 @@
+#include <iomanip>
+#include <ctime>
+#include <string>  
+#include <iostream> 
+#include <sstream> 
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_timer.h>
@@ -122,6 +128,15 @@ public:
 };
 
 
+void screenshot(SDL_Surface* surface) {
+    std::stringstream buffer;
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+    buffer << "screenshot_" << std::put_time(&tm, "%d-%m-%y_%H-%M-%S") << ".png";
+    const std::string tmp =  std::string{buffer.str()};
+    const char* str = tmp.c_str();
+    SDL_SaveBMP(surface, str);
+}
 
  
 int main(int argc, char *argv[])
@@ -152,6 +167,10 @@ int main(int argc, char *argv[])
                         case SDLK_ESCAPE:
                             quit = 1;
                             break;
+                        case SDLK_F10: {
+                            screenshot(e.video->surface);
+                            break;
+                        }
                         default:
                             break;
                     }
