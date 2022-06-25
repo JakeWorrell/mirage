@@ -23,7 +23,9 @@ void main() {
     do
     {
 
-        plot(rand() % 320,rand() % 240,rand() % 255);
+        plot(0,0,255);
+        plot(319,100,255);
+
         /* code */
     } while (1);
 

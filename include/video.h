@@ -102,7 +102,7 @@ class video_chip
                     break;
 
                 case VIDEO_STATE_RCV_X_LOWER:
-                    x = data;
+                    x = x | data << 8;
                     break;
 
                 case VIDEO_STATE_RCV_Y_UPPER:

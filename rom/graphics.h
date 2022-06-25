@@ -41,11 +41,10 @@ void plot(unsigned x, unsigned y, unsigned colour)
 
     ld a,(hl) ;a=x (upper)
     out (VIDEO_ADDR_IN), a
-    ;inc hl
+    inc hl
 
     ld a,(hl) ;a=x (lower)
     out (VIDEO_ADDR_IN), a
-    inc hl
     inc hl
 
     ld a,(hl) ;a=y (upper)
