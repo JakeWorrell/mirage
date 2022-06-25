@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Jun 18 16:45:25 2022
+# Make data base, printed on Sat Jun 25 14:02:12 2022
 
 # Variables
 
@@ -227,6 +227,7 @@ OLDPWD = /home/jake
 # environment
 LANGUAGE = en_GB:en
 # environment
+ 
 VSCODE_IPC_HOOK = /run/user/1000/vscode-6986c22e-1.68.1-main.sock
 # environment
 BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
@@ -253,7 +254,7 @@ QT_ACCESSIBILITY = 1
 # environment
 DEFAULTS_PATH = /usr/share/gconf/ubuntu.default.path
 # makefile (from 'makefile', line 6)
-ZCFLAGS = +z80 -create-app -o testcart rom/testcart.c
+ZCFLAGS = +z80 -create-app --math16 -o testcart rom/testcart.c 
 # default
 MAKEFILES := 
 # environment
@@ -289,7 +290,6 @@ GJS_DEBUG_OUTPUT = stderr
 # environment
 LANG = C
 # environment
- 
 VSCODE_PID = 808362
 # variable set hash-table stats:
 # Load=140/1024=14%, Rehash=0, Collisions=21/169=12%
@@ -300,9 +300,9 @@ VSCODE_PID = 808362
 
 # Directories
 
-# . (device 64769, inode 30843028): 18 files, no impossibilities.
+# . (device 64769, inode 30843028): 13 files, no impossibilities.
 
-# 18 files, no impossibilities in 1 directories.
+# 13 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -326,13 +326,13 @@ all: emu
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-18 16:45:11.618349095
+#  Last modified 2022-06-25 11:33:46.88907794
 #  File has been updated.
 #  Successfully updated.
 
 emu:
 #  Implicit rule search has not been done.
-#  Last modified 2022-06-18 16:10:56.415988442
+#  Last modified 2022-06-25 11:33:50.349111141
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 27):
@@ -379,12 +379,12 @@ roms:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 27 / storage = 254 B / avg = 9 B
-# current buf: size = 8162 B / used = 254 B / count = 27 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 22 / storage = 169 B / avg = 7 B
+# current buf: size = 8162 B / used = 169 B / count = 22 / avg = 7 B
 
-# strcache performance: lookups = 42 / hit rate = 35%
+# strcache performance: lookups = 37 / hit rate = 40%
 # hash-table stats:
-# Load=27/8192=0%, Rehash=0, Collisions=1/42=2%
-# Finished Make data base on Sat Jun 18 16:45:25 2022
+# Load=22/8192=0%, Rehash=0, Collisions=1/37=3%
+# Finished Make data base on Sat Jun 25 14:02:12 2022
 
  

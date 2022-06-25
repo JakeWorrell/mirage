@@ -47,7 +47,7 @@ public:
     void on_write(fast_u16 addr, fast_u8 n) {
         assert(addr < z80::address_space_size);
         // std::printf("write 0x%02x at 0x%04x\n", static_cast<unsigned>(n),
-        //             static_cast<unsigned>(addr));
+        //              static_cast<unsigned>(addr));
         memory[addr] = static_cast<least_u8>(n);
     }
 
@@ -70,8 +70,7 @@ public:
     }
 
     fast_u8 on_input(fast_u16 port) {
-        video->get_register(port);
-        return 0x00;
+        return video->get_register(port);
     }
 
     void render_display() {
@@ -135,15 +134,13 @@ int main(int argc, char *argv[])
     Uint32 frameStart, frameTime;
     
     SDL_Event event;
+    e.video->tof = 0;
 
     /* Loop until an SDL_QUIT event is found */
 
     while ( !quit ) {
-        e.video->tof = 0x01;
-
 		frameStart = SDL_GetTicks();
-        
-
+          
          /* Poll for events */
         while( SDL_PollEvent( &event ) ){
             
@@ -175,13 +172,15 @@ int main(int argc, char *argv[])
         size_t i = 0;
         while (!e.on_is_halted())
         {
+            e.video->tof = i==1;
+
             e.on_step();  
-            i++;
-            if (i >=46666) {
+
+            if (i >=4666) {
                 break;
             }
+            i++;
         }
-        e.render_display();
        
        
         frameTime = SDL_GetTicks() - frameStart;
@@ -190,6 +189,7 @@ int main(int argc, char *argv[])
 			SDL_Delay(int(DELAY_TIME - frameTime));
 		}
 
+        e.render_display();
 
         
     }

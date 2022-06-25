@@ -84,21 +84,12 @@ class video_chip
             switch (reg)
             {
                 case VIDEO_ADDR_TOF:{
-                fast_u8 wasTof =tof;
-                    tof=0x00;
-                    if (wasTof>0){
-                    printf("TOP OF FRAME%d", wasTof);
-                    }
-                    return wasTof;
+                    return tof;
                 }
                 default:
                     break;
             }
             return 0x00;
-        }
-
-        void setTof(fast_u8 value) {
-            tof = value;
         }
 
         void receiveData(fast_u8 data) {

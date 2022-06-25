@@ -2,9 +2,9 @@
 
 void clear(unsigned colour);
 void plot(unsigned x, unsigned y, unsigned colour);
-void waitTOF();
+void waitTOF() __z88dk_fastcall;
 
-void clear(unsigned colour) 
+void clear(unsigned colour)
 {
     __asm
     ld hl,3
@@ -63,14 +63,13 @@ void plot(unsigned x, unsigned y, unsigned colour)
     __endasm;
 }
 
-void waitTOF() 
-{ //this comparison stuff doesn't work
+void waitTOF() __z88dk_fastcall
+{ 
     __asm
-    waitTOF:
+      waitTOF:
             in a, (VIDEO_ADDR_TOF)
-            cp 0x01
-            jp nz, doneWaitTOF
-            jp waitTOF
+            or a
+            jp z, waitTOF
     doneWaitTOF:
     __endasm;
 
