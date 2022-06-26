@@ -80,8 +80,9 @@ public:
     }
 
     void render_display() {
+        SDL_Rect viewport{0,0,320,240};
         SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, video->surface);
-        SDL_RenderCopy(renderer, texture, NULL, NULL);
+        SDL_RenderCopy(renderer, texture, &viewport, NULL);
         SDL_RenderPresent(renderer);   
     }
 

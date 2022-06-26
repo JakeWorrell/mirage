@@ -50,7 +50,7 @@ class video_chip
         SDL_Surface *surface;
 
         video_chip() {
-            surface = SDL_CreateRGBSurface(SDL_SWSURFACE, width, height, 8, 0, 0, 0, 0);
+            surface = SDL_CreateRGBSurface(SDL_SWSURFACE, 320*2, 240*2, 8, 0, 0, 0, 0);
 
             SDL_SetPaletteColors(surface->format->palette, palette, 0, 256);
 

@@ -6,6 +6,7 @@
 
 #define VIDEO_MODE_CLEAR 0x00
 #define VIDEO_MODE_PLOT  0x01
+#define VIDEO_MODE_LINE  0x02
 
 #define VIDEO_STATE_READY 0x00
 #define VIDEO_STATE_BUSY 0x01
