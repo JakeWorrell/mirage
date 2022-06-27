@@ -18,7 +18,7 @@ class video_chip
         /* data */
 
         fast_u8 colour, mode, state, statePosition; 
-        fast_u16 x, y, width = 320, height = 240;
+        fast_u16 x, y, width = 640, height = 480;
 
         std::map<fast_u8, std::array<fast_u8, 10>> stateMap = {
             {VIDEO_MODE_CLEAR, {VIDEO_STATE_RCV_COLOR, VIDEO_STATE_BUSY, VIDEO_STATE_READY}},
@@ -50,7 +50,7 @@ class video_chip
         SDL_Surface *surface;
 
         video_chip() {
-            surface = SDL_CreateRGBSurface(SDL_SWSURFACE, 320*2, 240*2, 8, 0, 0, 0, 0);
+            surface = SDL_CreateRGBSurface(SDL_SWSURFACE, width, height, 8, 0, 0, 0, 0);
 
             SDL_SetPaletteColors(surface->format->palette, palette, 0, 256);
 
