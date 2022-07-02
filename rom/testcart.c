@@ -1,6 +1,17 @@
 #include "graphics.h"
-#include <math.h>
-#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+
+void blit_text(int x, int y, char *text) {
+    for (int i = 0; i < strlen(text); i++){
+        char character = text[i]-30;
+        if (character != 2) {
+            blit_tile(x,y,character);            
+        }
+        x+=8;
+    }
+}
 
 void main() {
     
@@ -21,7 +32,8 @@ void main() {
     plot(319,0,7);
     plot(0,239,7);
 
-    blit_tile(100,100,1);
+
+    blit_text(100,100,"hello world!");
 
     waitTOF();
 
