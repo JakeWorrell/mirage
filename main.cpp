@@ -33,8 +33,28 @@ public:
     typedef z80::z80_cpu<my_emulator> base;
 
     my_emulator() {
-        load_rom();
         init_video();
+    }
+
+
+    void load_rom(const char* romFileName) {
+        FILE * pFile;
+        size_t lSize;
+        size_t result;
+
+        pFile = fopen ( romFileName , "rb" );
+        if (pFile==NULL) {fputs ("Error finding rom.bin",stderr); exit (1);}
+
+        // obtain file size:
+        fseek (pFile , 0 , SEEK_END);
+        lSize = ftell (pFile);
+        rewind (pFile);
+
+        // copy the file into the memory:
+        result = fread (memory,1,lSize,pFile);
+        if (result != lSize) {fputs ("Error reading rom.bin",stderr); exit (3);}
+
+        fclose (pFile);
     }
 
     void on_set_pc(z80::fast_u16 pc) {
@@ -92,26 +112,6 @@ public:
     SDL_Window *window;
     SDL_Renderer *renderer;
 
-    void load_rom() {
-        FILE * pFile;
-        size_t lSize;
-        size_t result;
-
-        pFile = fopen ( "testcart.bin" , "rb" );
-        if (pFile==NULL) {fputs ("Error finding rom.bin",stderr); exit (1);}
-
-        // obtain file size:
-        fseek (pFile , 0 , SEEK_END);
-        lSize = ftell (pFile);
-        rewind (pFile);
-
-        // copy the file into the memory:
-        result = fread (memory,1,lSize,pFile);
-        if (result != lSize) {fputs ("Error reading rom.bin",stderr); exit (3);}
-
-        fclose (pFile);
-    }
-
     void init_video() {
         // returns zero on success else non-zero
         if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -123,8 +123,6 @@ public:
         
     
         video = new video_chip();
-
-    
     }
 };
 
@@ -144,6 +142,8 @@ int main(int argc, char *argv[])
 {
     int quit = 0;
     my_emulator e;
+
+    e.load_rom("testcart.bin");
 
     const int FPS = 60;
     const int DELAY_TIME = 1000.0f / FPS;

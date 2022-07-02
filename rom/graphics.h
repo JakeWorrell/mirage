@@ -62,6 +62,39 @@ void plot(unsigned x, unsigned y, unsigned colour)
     __endasm;
 }
 
+void blit_tile(unsigned x, unsigned y, unsigned tileid)
+{
+    __asm
+    ld hl,3
+    add hl,sp              ; skip over return address on stack
+    inc hl
+
+    ld a, VIDEO_MODE_TILESHEET_BLIT_TILE
+    out (VIDEO_ADDR_MODE), a
+
+    ld a,(hl) ;a=x (upper)
+    out (VIDEO_ADDR_IN), a
+    inc hl
+
+    ld a,(hl) ;a=x (lower)
+    out (VIDEO_ADDR_IN), a
+    inc hl
+
+    ld a,(hl) ;a=y (upper)
+    out (VIDEO_ADDR_IN), a
+    ;inc hl
+
+    ld a,(hl) ;a=y (lower)
+    out (VIDEO_ADDR_IN), a
+    inc hl
+    inc hl
+
+    ld a,(hl) ;a=tileid
+    out (VIDEO_ADDR_IN), a
+
+    __endasm;
+}
+
 void waitTOF() __z88dk_fastcall
 { 
     __asm
