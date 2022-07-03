@@ -4,12 +4,21 @@
 
 
 void blit_text(int x, int y, char *text) {
+    int initial_x = x;
     for (int i = 0; i < strlen(text); i++){
-        char character = text[i]-32;
-        if (character >0) {
-            blit_tile(x,y,character);            
+        if (text[i]== 10) {
+            x = initial_x;
+            y+=8;
+        } else if (text[i]==9){
+            x+=24;
+        } else {
+            char character = text[i]-32;
+            if (character >0) {
+                blit_tile(x,y,character);            
+            }
+            x+=6;
         }
-        x+=6;
+        
     }
 }
 
@@ -39,7 +48,7 @@ for (size_t i = 0; i < 240; i++)
 
     clear(24);       
 
-    blit_text(i,100,"Hello World!");
+    blit_text(i,100,"Hello World!\n\tHello World!");
 
 }
 
