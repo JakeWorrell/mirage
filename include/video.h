@@ -60,7 +60,7 @@ class video_chip
 
         video_chip() {
             surface = SDL_CreateRGBSurface(SDL_SWSURFACE, width, height, 8, 0, 0, 0, 0);
-
+            SDL_SetColorKey(surface, true, 255);
             SDL_SetPaletteColors(surface->format->palette, palette, 0, 256);
             load_graphics_data();
                  
@@ -176,5 +176,7 @@ class video_chip
                 printf("IMG_LoadPCX_RW: %s\n", IMG_GetError());
                 // handle error
             }
+            SDL_SetPaletteColors(tile_memory[0]->format->palette, palette, 0, 256);
+            
         }
 };

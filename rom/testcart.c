@@ -42,15 +42,8 @@ void main() {
     plot(0,239,7);
 
 
-for (size_t i = 0; i < 240; i++)
-{
-    waitTOF();
+    blit_text(100,100,"Hello World!\n\tHello Orca!");
 
-    clear(24);       
-
-    blit_text(i,100,"Hello World!\n\tHello World!");
-
-}
 
 
 } 
