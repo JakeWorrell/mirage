@@ -2,7 +2,7 @@
 
 void clear(unsigned colour);
 void plot(unsigned x, unsigned y, unsigned colour);
-void waitTOF();
+void waitTOF() __z88dk_fastcall;
 
 void clear(unsigned colour)
 {
@@ -95,7 +95,7 @@ void blit_tile(unsigned x, unsigned y, unsigned tileid)
     __endasm;
 }
 
-void waitTOF()
+void waitTOF() __z88dk_fastcall
 { 
     __asm
       waitTOF:
