@@ -3,11 +3,11 @@
 # set the compiler
 CC=g++
 ZCC=zcc
-ZCFLAGS=+z80 -create-app --math32 --math16 -o testcart rom/testcart.c 
+ZCFLAGS=+z80 -create-app --math32 --math16 -O2 -o testcart rom/testcart.c 
 ZASM=z88dk-z80asm
 
 # set the compiler flags
-CFLAGS=`sdl2-config --libs --cflags` -ggdb3 -O0 --std=c++11 -Wall -lSDL2_image -lm
+CFLAGS=`sdl2-config --libs --cflags` -g0 -ggdb0 -O2 --std=c++11 -Wall -lSDL2_image -lm
 # add header files here
 HDRS=
 # add source files here

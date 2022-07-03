@@ -80,10 +80,12 @@ public:
     void on_halt() {
         std::printf("HALT\n");
         base::on_halt();
+        //exit(0);
     }
 
      void on_step() {
         base::on_step();
+
         video->update();
     }
 
@@ -100,7 +102,6 @@ public:
     }
 
     void render_display() {
-        SDL_Rect viewport{0,0,320,240};
         SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, video->surface);
         SDL_RenderCopy(renderer, texture, &viewport, NULL);
         SDL_RenderPresent(renderer);   
@@ -111,6 +112,8 @@ public:
     least_u8 memory[z80::address_space_size] = {};
     SDL_Window *window;
     SDL_Renderer *renderer;
+    SDL_Rect viewport{0,0,320,240};
+
 
     void init_video() {
         // returns zero on success else non-zero
@@ -146,11 +149,10 @@ int main(int argc, char *argv[])
     e.load_rom("testcart.bin");
 
     const int FPS = 60;
-    const int DELAY_TIME = 1000.0f / FPS;
+    const int DELAY_TIME = 1000 / FPS;
     Uint32 frameStart, frameTime;
     
     SDL_Event event;
-    e.video->tof = 0;
 
     /* Loop until an SDL_QUIT event is found */
 
@@ -192,18 +194,18 @@ int main(int argc, char *argv[])
         size_t i = 0;
         while (!e.on_is_halted())
         {
-            e.video->tof = i==1;
+            e.video->tof = i<5; // TOF for the first few clock cycles
 
             e.on_step();  
 
-            if (i >=46666) {
+            if (i >=100000) {
                 break;
             }
             i++;
         }
        
-       
         frameTime = SDL_GetTicks() - frameStart;
+
 		if (frameTime < DELAY_TIME)
 		{
 			SDL_Delay(int(DELAY_TIME - frameTime));

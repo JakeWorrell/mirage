@@ -142,20 +142,9 @@ class video_chip
 
         void update() {
             
-            switch (state)
-            {
-                case VIDEO_STATE_READY:
-                    break;
-
-                case VIDEO_STATE_BUSY:
-                    execute();
-                    break;
-
-                default:
-                    break;
+            if (state == VIDEO_STATE_BUSY){
+                execute();
             }
-
-            
         }
 
         void tilesheet_blit_tile(void) {
