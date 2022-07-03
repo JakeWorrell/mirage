@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Jun 29 23:28:48 2022
+# Make data base, printed on Sun Jul  3 01:20:39 2022
 
 # Variables
 
@@ -51,7 +51,7 @@ VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupp
 # environment
 JOURNAL_STREAM = 9:61287
 # makefile (from 'makefile', line 10)
-CFLAGS = `sdl2-config --libs --cflags` -ggdb3 -O0 --std=c++11 -Wall -lSDL2_image -lm
+CFLAGS = `sdl2-config --libs --cflags` -g0 -ggdb0 -O2 --std=c++11 -Wall -lSDL2_image -lm
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -253,7 +253,7 @@ QT_ACCESSIBILITY = 1
 # environment
 DEFAULTS_PATH = /usr/share/gconf/ubuntu.default.path
 # makefile (from 'makefile', line 6)
-ZCFLAGS = +z80 -create-app --math32 --math16 -o testcart rom/testcart.c 
+ZCFLAGS = +z80 -create-app --math32 --math16 -O2 -o testcart rom/testcart.c 
 # default
 MAKEFILES := 
 # environment
@@ -300,9 +300,9 @@ VSCODE_PID = 1592524
 
 # Directories
 
-# . (device 64769, inode 30843028): 23 files, no impossibilities.
+# . (device 64769, inode 30843028): 21 files, no impossibilities.
 
-# 23 files, no impossibilities in 1 directories.
+# 21 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -326,13 +326,13 @@ all: emu
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-25 14:11:09.309814922
+#  Last modified 2022-07-03 01:20:09.451924283
 #  File has been updated.
 #  Successfully updated.
 
 emu:
 #  Implicit rule search has not been done.
-#  Last modified 2022-06-29 00:41:57.695783205
+#  Last modified 2022-07-03 01:20:12.683961352
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 27):
@@ -379,12 +379,12 @@ roms:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 32 / storage = 338 B / avg = 10 B
-# current buf: size = 8162 B / used = 338 B / count = 32 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 30 / storage = 305 B / avg = 10 B
+# current buf: size = 8162 B / used = 305 B / count = 30 / avg = 10 B
 
-# strcache performance: lookups = 47 / hit rate = 31%
+# strcache performance: lookups = 45 / hit rate = 33%
 # hash-table stats:
-# Load=32/8192=0%, Rehash=0, Collisions=1/47=2%
-# Finished Make data base on Wed Jun 29 23:28:48 2022
+# Load=30/8192=0%, Rehash=0, Collisions=1/45=2%
+# Finished Make data base on Sun Jul  3 01:20:39 2022
 
  

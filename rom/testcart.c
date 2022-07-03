@@ -5,8 +5,8 @@
 
 void blit_text(int x, int y, char *text) {
     for (int i = 0; i < strlen(text); i++){
-        char character = text[i]-30;
-        if (character != 2) {
+        char character = text[i]-32;
+        if (character >0) {
             blit_tile(x,y,character);            
         }
         x+=8;
@@ -33,8 +33,15 @@ void main() {
     plot(0,239,7);
 
 
-    blit_text(100,100,"hello world!");
-
+for (size_t i = 0; i < 240; i++)
+{
     waitTOF();
+
+    clear(24);       
+
+    blit_text(i,100,"Hello World!");
+
+}
+
 
 } 
