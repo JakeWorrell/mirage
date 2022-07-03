@@ -150,16 +150,16 @@ class video_chip
         void tilesheet_blit_tile(void) {
             SDL_Rect srcrect;
 
-            srcrect.x = 8*tile_id;
+            srcrect.x = 6*tile_id;
             srcrect.y = 0;
-            srcrect.w = 8;
+            srcrect.w = 6;
             srcrect.h = 8;
 
             SDL_Rect destrect;
 
             destrect.x = x;
             destrect.y = y;
-            destrect.w = 8;
+            destrect.w = 6;
             destrect.h = 8;
 
             SDL_BlitSurface(tile_memory[0],

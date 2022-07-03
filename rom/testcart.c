@@ -9,7 +9,7 @@ void blit_text(int x, int y, char *text) {
         if (character >0) {
             blit_tile(x,y,character);            
         }
-        x+=8;
+        x+=6;
     }
 }
 
