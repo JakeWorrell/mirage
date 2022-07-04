@@ -42,7 +42,7 @@ void main() {
     plot(0,239,7);
 
 
-    blit_text(100,100,"Hello World!\n\tHello Orca!");
+    blit_text(100,100,"Hello World!\n\tThis is some test text\n\twith newlines and tabs!");
 
 
 

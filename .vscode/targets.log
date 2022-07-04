@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun Jul  3 01:20:39 2022
+# Make data base, printed on Mon Jul  4 22:42:15 2022
 
 # Variables
 
@@ -85,7 +85,7 @@ OBJS = $(SRCS:.cpp=.o)
 # environment
 MANAGERPID = 3625
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-2d28ccdd-5dff-40fa-8c3b-a2fd5920c724.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-27302089-5d33-48c4-a2d0-6ee91c143aba.sock
 # environment
 VSCODE_CWD = /home/jake
 # environment
@@ -277,7 +277,6 @@ SUFFIXES :=
 # environment
 SNAP_REEXEC = 
 # environment
- 
 CHROME_DESKTOP = code-url-handler.desktop
 # environment
 WINDOWPATH = 2
@@ -290,6 +289,7 @@ GJS_DEBUG_OUTPUT = stderr
 # environment
 LANG = C
 # environment
+ 
 VSCODE_PID = 1592524
 # variable set hash-table stats:
 # Load=140/1024=14%, Rehash=0, Collisions=21/169=12%
@@ -332,7 +332,7 @@ makefile:
 
 emu:
 #  Implicit rule search has not been done.
-#  Last modified 2022-07-03 01:20:12.683961352
+#  Last modified 2022-07-04 01:21:59.983016167
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 27):
@@ -379,12 +379,12 @@ roms:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 30 / storage = 305 B / avg = 10 B
-# current buf: size = 8162 B / used = 305 B / count = 30 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 30 / storage = 332 B / avg = 11 B
+# current buf: size = 8162 B / used = 332 B / count = 30 / avg = 11 B
 
 # strcache performance: lookups = 45 / hit rate = 33%
 # hash-table stats:
 # Load=30/8192=0%, Rehash=0, Collisions=1/45=2%
-# Finished Make data base on Sun Jul  3 01:20:39 2022
+# Finished Make data base on Mon Jul  4 22:42:15 2022
 
  
